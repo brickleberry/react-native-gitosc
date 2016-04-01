@@ -2,69 +2,45 @@
  * Created by rplees on 13-12-26.
  */
 const Log = {
-    log(m){
-        if (arguments.length > 1) { //有参数
-            for (var i = 1; i < arguments.length; i++) {
-                if (m.indexOf("%s") > -1) {
-                    m = m.replace("%s", arguments[i]);
-                } else {
-                    m = m.replace("{}", arguments[i]);
-                }
+    _l(array) {
+        if(!m) return;
+        let m = array[0];
+        for (var i = 1; i < array.length; i++) {
+            if (m.indexOf("%s") > -1) {
+                m = m.replace("%s", array[i]);
+            } else {
+                m = m.replace("{}", array[i]);
             }
         }
+
         console.log(m);
+    },
+
+    log(m){
+       this._l(Array.prototype.slice.apply(arguments));
     },
 
     info(m){
-        if (arguments.length > 1) { //有参数
-            for (var i = 1; i < arguments.length; i++) {
-                if (m.indexOf("%s") > -1) {
-                    m = m.replace("%s", arguments[i]);
-                } else {
-                    m = m.replace("{}", arguments[i]);
-                }
-            }
-        }
-        console.log(m);
+        this._l(Array.prototype.slice.apply(arguments));
     },
 
     debug(m){
-        if (arguments.length > 1) { //有参数
-            for (var i = 1; i < arguments.length; i++) {
-                if (m.indexOf("%s") > -1) {
-                    m = m.replace("%s", arguments[i]);
-                } else {
-                    m = m.replace("{}", arguments[i]);
-                }
-            }
-        }
-        console.log(m);
+        this._l(Array.prototype.slice.apply(arguments));
     },
 
     warn(m){
-        if (arguments.length > 1) { //有参数
-            for (var i = 1; i < arguments.length; i++) {
-                if (m.indexOf("%s") > -1) {
-                    m = m.replace("%s", arguments[i]);
-                } else {
-                    m = m.replace("{}", arguments[i]);
-                }
-            }
-        }
-        console.log('[warn]' + m);
+        var arr = Array.prototype.slice.apply(arguments);
+        if(arr)
+            arr[0] = '[warn]' + arr[0];
+
+        this._l(arr);
     },
 
     error(m){
-        if (arguments.length > 1) { //有参数
-            for (var i = 1; i < arguments.length; i++) {
-                if (m.indexOf("%s") > -1) {
-                    m = m.replace("%s", arguments[i]);
-                } else {
-                    m = m.replace("{}", arguments[i]);
-                }
-            }
-        }
-        console.log('[error]' + m);
+        var arr = Array.prototype.slice.apply(arguments);
+        if(arr)
+            arr[0] = '[error]' + arr[0];
+        this._l(arr);
     }
 }
 
