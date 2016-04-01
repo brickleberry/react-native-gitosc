@@ -4,7 +4,7 @@ const CommonComponents = require('../common/CommonComponents');
 const RefreshListView = require('../common/RefreshListView');
 const PropTypes = React.PropTypes;
 const OSCService = require('../service/OSCService');
-const ErrorPlaceholder = require('../common/ErrorPlacehoderComponent');
+const ErrorPlacehoderComponent = require('../common/ErrorPlacehoderComponent');
 const Platform = require('Platform');
 
 const {
@@ -46,20 +46,18 @@ const OSCRefreshListView = React.createClass({
             if (this.props.renderErrorPlaceholder) {
                 return this.props.renderErrorPlaceholder(error);
             } else {
-                return
-                    CommonComponents.errorPlaceholder(error.message, 'Oops, tap to reload', () => {
-                        L.info("ErrorPlaceholder onPress 事件.{}", this.refs[LISTVIEW_REF]);
-                        this.setState({lastError: {isReloadError: false, error: ""}});
-                    });
+                return CommonComponents.errorPlaceholder(error, 'Oops, tap to reload', () => {
+                    this.setState({lastError: {isReloadError: false, error: ""}});
+                });
             }
+        } else {
+            return <RefreshListView renderRow={this.renderRow}
+                                    ref={LISTVIEW_REF}
+                                    onRefresh={(page, callback) => this.listViewOnRefresh(page, callback)}
+                                    style={styles.listview}
+                {...this.props}
+            />
         }
-
-        return <RefreshListView renderRow={this.renderRow}
-                                ref={LISTVIEW_REF}
-                                onRefresh={(page, callback) => this.listViewOnRefresh(page, callback)}
-                                style={styles.listview}
-                                {...this.props}
-        />
     }
 
 });

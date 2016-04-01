@@ -81,7 +81,8 @@ Xcode run!
 
 ### Publish update
 
-	release RN_OSCGit ./ios/bundle 1.0.7 -d Production
+	#release RN_OSCGit ./ios/bundle 1.0.7 -d Production
+	code-push release-react RN_OSCGit ios --entryFile ./ios/bundle/index.ios.jsbundle
 
 ## Let's talk about it(So far only Chinese supported)  
 

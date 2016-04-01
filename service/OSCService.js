@@ -165,6 +165,7 @@ class OSCService extends EventEmitter {
         L.debug("准备请求地址:{}", url);
         return fetch(url, {
             method: method,
+            timeout:5000,//FIXME:这个参数没生效
             headers: {
                 'User-Agent': config.userAgent,
                 'Accept': 'application/json; charset=utf-8'
